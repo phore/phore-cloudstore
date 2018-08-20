@@ -26,7 +26,7 @@ class GoogleCloudStoreDriver implements CloudStoreDriver
         if ( ! class_exists(StorageClient::class))
             throw new \InvalidArgumentException("Package google/cloud-storage is missing. Install it by running 'composer install google/cloud-storage'");
         $store = new StorageClient([
-            "keyFilePath" => __DIR__ . "/../etc/talpa-backend-a938dc597171.json"
+            "keyFilePath" => $keyFilePath
         ]);
 
         $this->bucket = $store->bucket("talpa-maschine-data");
