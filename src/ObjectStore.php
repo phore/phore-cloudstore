@@ -9,7 +9,9 @@
 namespace Phore\CloudStore;
 
 
+use GuzzleHttp\Psr7\Stream;
 use Phore\CloudStore\Driver\CloudStoreDriver;
+use Psr\Http\Message\StreamInterface;
 
 class ObjectStore
 {
@@ -56,6 +58,16 @@ class ObjectStore
     public function put (string $objectId, string $data)
     {
         $this->driver->put($objectId, $data);
+    }
+
+    public function putStream (string $objectId, $ressource)
+    {
+        $this->driver->putStream($objectId, $ressource);
+    }
+
+    public function getStream(string $objectId) : StreamInterface
+    {
+        return $this->driver->getStream($objectId);
     }
 
     public function putJson (string $objectId, array $data)

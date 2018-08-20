@@ -11,6 +11,7 @@ namespace Phore\CloudStore\Driver;
 
 use Google\Cloud\Storage\Bucket;
 use Google\Cloud\Storage\StorageClient;
+use Psr\Http\Message\StreamInterface;
 
 class GoogleCloudStoreDriver implements CloudStoreDriver
 {
@@ -55,4 +56,16 @@ class GoogleCloudStoreDriver implements CloudStoreDriver
         return $this->bucket;
     }
 
+    public function putStream(string $objectId, $ressource)
+    {
+        $this->bucket->upload($ressource, [
+            "name" => $objectId,
+            'predefinedAcl' => 'projectprivate'
+        ]);
+    }
+
+    public function getStream(string $objectId) : StreamInterface
+    {
+        return $this->bucket->object($objectId)->downloadAsStream();
+    }
 }

@@ -9,9 +9,14 @@
 namespace Phore\CloudStore\Driver;
 
 
+use Psr\Http\Message\StreamInterface;
+
 interface CloudStoreDriver
 {
     public function has(string $objectId) : bool;
     public function put(string $objectId, $content);
+    public function putStream(string $objectId, $ressource);
+
     public function get(string $objectId) : string;
+    public function getStream(string $objectId) : StreamInterface;
 }
