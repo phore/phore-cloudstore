@@ -29,7 +29,7 @@ class GoogleCloudStoreDriver implements CloudStoreDriver
             "keyFilePath" => $keyFilePath
         ]);
 
-        $this->bucket = $store->bucket("talpa-maschine-data");
+        $this->bucket = $store->bucket($bucketName);
     }
 
 
