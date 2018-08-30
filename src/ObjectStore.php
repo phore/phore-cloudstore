@@ -51,6 +51,11 @@ class ObjectStore
     }
 
 
+    /**
+     * @param string $objectId
+     * @return array
+     * @throws NotFoundException
+     */
     public function getJson (string $objectId) : array
     {
         $data = $this->get($objectId);
@@ -70,6 +75,11 @@ class ObjectStore
         $this->driver->putStream($objectId, $ressource);
     }
 
+    /**
+     * @param string $objectId
+     * @return StreamInterface
+     * @throws NotFoundException
+     */
     public function getStream(string $objectId) : StreamInterface
     {
         return $this->driver->getStream($objectId);
