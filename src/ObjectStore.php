@@ -40,6 +40,11 @@ class ObjectStore
     }
 
 
+    /**
+     * @param string $objectId
+     * @return string
+     * @throws NotFoundException
+     */
     public function get(string $objectId) : string
     {
         return $this->driver->get($objectId);

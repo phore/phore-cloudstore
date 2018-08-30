@@ -17,6 +17,17 @@ interface CloudStoreDriver
     public function put(string $objectId, $content);
     public function putStream(string $objectId, $ressource);
 
+    /**
+     * @param string $objectId
+     * @return StreamInterface
+     * @throws \Phore\CloudStore\NotFoundException
+     */
     public function get(string $objectId) : string;
+    
+    /**
+     * @param string $objectId
+     * @return StreamInterface
+     * @throws \Phore\CloudStore\NotFoundException
+     */
     public function getStream(string $objectId) : StreamInterface;
 }

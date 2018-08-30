@@ -9,6 +9,7 @@
 namespace Phore\CloudStore\Driver;
 
 
+use Google\Cloud\Core\Exception\NotFoundException;
 use Google\Cloud\Storage\Bucket;
 use Google\Cloud\Storage\StorageClient;
 use Psr\Http\Message\StreamInterface;
@@ -46,9 +47,18 @@ class GoogleCloudStoreDriver implements CloudStoreDriver
         ]);
     }
 
+    /**
+     * @param string $objectId
+     * @return StreamInterface
+     * @throws \Phore\CloudStore\NotFoundException
+     */
     public function get(string $objectId): string
     {
-        return $this->bucket->object($objectId)->downloadAsString();
+        try {
+            return $this->bucket->object($objectId)->downloadAsString();
+        } catch (NotFoundException $e) {
+            throw new \Phore\CloudStore\NotFoundException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     public function getBucket() : Bucket
@@ -64,8 +74,17 @@ class GoogleCloudStoreDriver implements CloudStoreDriver
         ]);
     }
 
+    /**
+     * @param string $objectId
+     * @return StreamInterface
+     * @throws \Phore\CloudStore\NotFoundException
+     */
     public function getStream(string $objectId) : StreamInterface
     {
-        return $this->bucket->object($objectId)->downloadAsStream();
+        try {
+            return $this->bucket->object($objectId)->downloadAsStream();
+        } catch (NotFoundException $e) {
+            throw new \Phore\CloudStore\NotFoundException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 }
